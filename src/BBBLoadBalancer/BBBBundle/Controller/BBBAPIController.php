@@ -280,11 +280,11 @@ class BBBAPIController extends Controller
      * @Route("/bigbluebutton/api/getDefaultConfigXML", defaults={"_format": "xml"})
      * @Method({"GET"})
      */
-    public function getDefaultConfigXMLAction(Request $request)
+     public function getDefaultConfigXMLAction(Request $request)
     {
         // Get default config file.
-        $this->get('logger')->debug("*getDefaultConfigXML");
-        $xml=file_get_contents($this->container->getParameter('bbb.configfile_path'));
+        $this->get('logger')->info("*getDefaultConfigXML");
+        $xml=file_get_contents("/var/www/lb/src/BBBLoadBalancer/BBBBundle/Controller/config.xml");
         $response = new Response($xml);
         $response->headers->set('Content-Type', 'text/xml');
         return $response;
