@@ -57,7 +57,32 @@ class BBBService
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 
         $output = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        if($httpCode != 200) {
+        /* Retry request. https://github.com/ICTO/BBB-Load-Balancer/issues/17 */
+        $output = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if($httpCode != 200) {
+                 $output = curl_exec($ch);
+                 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                 if($httpCode != 200) {
+                           $output = curl_exec($ch);
+                           $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                           if($httpCode != 200){
+                                        $output = curl_exec($ch);
+                                        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                                        if($httpCode != 200){
+                                                     $output = curl_exec($ch);
+                                                     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                                                     if($httpCode != 200){
+                                                                  $output = curl_exec($ch);
+                                  }
+                        }
+               }
+         }
+     }
+ }
         curl_close($ch);
 
         $this->logger->debug("Request to BBB Server", array("url" => $url, "output" => $output));
