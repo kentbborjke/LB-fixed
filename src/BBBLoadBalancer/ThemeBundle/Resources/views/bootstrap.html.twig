@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block description %}{% endblock %}">
+
+    <title>{% block title %}BBB Load Balancer{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    {% block stylesheets %}
+        {% stylesheets '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap.css'
+                       '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap-theme.css'
+                       'bundles/bbbloadbalancertheme/css/global.css'
+                        filter='cssrewrite' filter='?uglifycss' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        {% stylesheets
+            output='/css/bootstrap.css.map'
+                   '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap.css.map'
+            output='/css/bootstrap-theme.css.map'
+                   '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap-theme.css.map' %}
+        {% endstylesheets %}
+        {% stylesheets
+            output='/css/bootstrap.css.map'
+                   '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap.css.map' %}
+        {% endstylesheets %}
+        {% stylesheets
+            output='/fonts/glyphicons-halflings-regular.eot'
+                   '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.eot' %}
+        {% endstylesheets %}
+        {% stylesheets
+            output='/fonts/glyphicons-halflings-regular.svg'
+                   '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.svg' %}
+        {% endstylesheets %}
+        {% stylesheets
+            output='/fonts/glyphicons-halflings-regular.ttf'
+                   '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf' %}
+        {% endstylesheets %}
+        {% stylesheets
+            output='/fonts/glyphicons-halflings-regular.woff'
+                   '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.woff' %}
+        {% endstylesheets %}
+        {% stylesheets
+            output='/fonts/glyphicons-halflings-regular.woff2'
+                   '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2' %}
+        {% endstylesheets %}
+    {% endblock %}
+  </head>
+
+  <body class="{% block body_class %}{% endblock %}">
+  {% block body %}
+    {% block navigation %}
+    {% endblock %}
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+  {% endblock %}
+  {% block javascripts %}
+      {% javascripts
+          '%kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.min.js'
+          '%kernel.root_dir%/../vendor/twitter/bootstrap/dist/js/bootstrap.js'
+          filter='?uglifyjs2' %}
+          <script src="{{ asset_url }}"></script>
+      {% endjavascripts %}
+  {% endblock %}
+  </body>
+</html>

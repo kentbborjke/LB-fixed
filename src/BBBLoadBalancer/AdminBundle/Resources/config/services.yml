@@ -1,0 +1,7 @@
+services:
+    meeting:
+        class: BBBLoadBalancer\AdminBundle\Service\MeetingService
+        arguments: [ @doctrine_mongodb, @validator ]
+    server:
+        class: BBBLoadBalancer\AdminBundle\Service\ServerService
+        arguments: [ @doctrine_mongodb, @bbb, @validator, @meeting, @logger ]
