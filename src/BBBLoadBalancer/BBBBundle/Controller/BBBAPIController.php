@@ -22,7 +22,7 @@ class BBBAPIController extends Controller
     	if($servers){
     		$return = "<response>
     					   <returncode>SUCCESS</returncode>
-    					   <version></version>
+    					   <version>0.9</version>
 					   </response>";
     	} else {
     		$return = "<response>
