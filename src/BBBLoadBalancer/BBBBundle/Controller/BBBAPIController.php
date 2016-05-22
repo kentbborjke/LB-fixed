@@ -301,31 +301,25 @@ class BBBAPIController extends Controller
         $meetingID = $request->get('meetingID');
         $checksum = $request->get('checksum');
         $configXML = $request->get('configXML');
-
         $this->get('logger')->debug("*setConfigXML");
         $this->get('logger')->debug("***************");
         $this->get('logger')->debug("DATA:", array("meetingID" => $meetingID ) );
         $this->get('logger')->debug("DATA:", array("checksum" =>  $checksum ) );
         $this->get('logger')->debug("DATA:", array("configXML" => $configXML ) );
         $this->get('logger')->debug("DATA:", array("output" => $output) );
-
         $meeting = $this->get('meeting')->getMeetingBy(array('meetingId' => $meetingID));
         if(!$meeting) {
             return $this->errorMeeting($output['meetingID']);
         } else {
             $server = $meeting->getServer();
-
             $newconfigXML = str_replace("_LBHOST_", $server->getName(), $configXML);
             $this->get('logger')->debug("DATA:", array("newconfigXML" => $newconfigXML));
-
             $data = "configXML=" . urlencode($newconfigXML) . "&meetingID=" . $meetingID;
             $chkstring ="setConfigXML" . $data;
             $newchecksum = sha1($chkstring . $salt);
             $this->get('logger')->debug("DATA:", array("Orig Checksum" => $checksum));
             $this->get('logger')->debug("DATA:", array("New Checksum" => $newchecksum));
-
             $postUrl = $server->getUrl() . "/bigbluebutton/api/setConfigXML?" . $data . "&checksum=" . $newchecksum;
-
             $return = $this->get('bbb')->doPostRequest($postUrl, $data);
             $response = new Response($return);
         }
